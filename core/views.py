@@ -3,7 +3,9 @@ from django.http import JsonResponse
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics
 from .serializers import PostSerialier
+from rest_framework import mixins
 from .models import Post
 
 # Create your views here.
@@ -32,3 +34,21 @@ class TestView(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors)
+
+
+class PostView(mixins.ListModelMixin ,generics.GenericAPIView):
+    serializer_class = PostSerialier
+    queryset = Post.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
+class PostCreateView(generics.CreateAPIView):
+    serializer_class = PostSerialier
+    queryset = Post.objects.all()
+
+
+class PostListCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = PostSerialier
+    queryset = Post.objects.all()
