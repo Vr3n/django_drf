@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import PostSerialier
@@ -16,6 +17,9 @@ from .models import Post
 #     return JsonResponse(data, safe=False) # safe = false - is used to parse in Data types other than disctionary like - lists.
 
 class TestView(APIView):
+
+    permission_classes = (IsAuthenticated, )
+
     def get(self, request, *args, **kwargs):
         qs = Post.objects.all()
         serializer = PostSerialier(qs, many=True)
