@@ -2,4 +2,4 @@
 **/drf_api/settings.py
 **/migrations/
 **/__pycache__/
-
+db.sqlite3
