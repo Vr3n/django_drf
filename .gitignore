@@ -1,0 +1,5 @@
+.vscode
+**/drf_api/settings.py
+**/migrations/
+**/__pycache__/
+
